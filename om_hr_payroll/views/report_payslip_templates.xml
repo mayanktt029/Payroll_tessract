@@ -111,33 +111,33 @@
                         </table>
 
                         <!-- Reimbursements Section -->
-                        <t t-if="o.employee_id.contract_id and o.employee_id.contract_id.reimbursement_ids">
-                            <div class="section-title"><strong>REIMBURSEMENTS</strong></div>
-                            <table class="table table-bordered" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
-                                <thead>
-                                    <tr>
-                                        <th>Description</th>
-                                        <th>Amount</th>
-                                        <th>YTD</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <t t-foreach="o.employee_id.contract_id.reimbursement_ids" t-as="reimbursement">
-                                        <tr>
-                                            <td><span t-esc="reimbursement.name"/></td>
-                                            <td>₹<span t-esc="reimbursement.amount"/></td>
-                                            <td>₹<span t-esc="reimbursement.ytd"/></td>
-                                        </tr>
-                                    </t>
+<!--                        <t t-if="o.employee_id.contract_id and o.employee_id.contract_id.reimbursement_ids">-->
+<!--                            <div class="section-title"><strong>REIMBURSEMENTS</strong></div>-->
+<!--                            <table class="table table-bordered" style="width: 100%; border-collapse: collapse; margin-top: 10px;">-->
+<!--                                <thead>-->
+<!--                                    <tr>-->
+<!--                                        <th>Description</th>-->
+<!--                                        <th>Amount</th>-->
+<!--                                        <th>YTD</th>-->
+<!--                                    </tr>-->
+<!--                                </thead>-->
+<!--                                <tbody>-->
+<!--                                    <t t-foreach="o.employee_id.contract_id.reimbursement_ids" t-as="reimbursement">-->
+<!--                                        <tr>-->
+<!--                                            <td><span t-esc="reimbursement.name"/></td>-->
+<!--                                            <td>₹<span t-esc="reimbursement.amount"/></td>-->
+<!--                                            <td>₹<span t-esc="reimbursement.ytd"/></td>-->
+<!--                                        </tr>-->
+<!--                                    </t>-->
 
-                                    <tr>
-                                        <td><strong>Total Reimbursements</strong></td>
-                                        <td>₹<t t-esc="sum(reimbursement.amount for reimbursement in o.employee_id.contract_id.reimbursement_ids)"/></td>
-                                        <td>₹<t t-esc="sum(reimbursement.amount * 12 for reimbursement in o.employee_id.contract_id.reimbursement_ids)"/></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </t>
+<!--                                    <tr>-->
+<!--                                        <td><strong>Total Reimbursements</strong></td>-->
+<!--                                        <td>₹<t t-esc="sum(reimbursement.amount for reimbursement in o.employee_id.contract_id.reimbursement_ids)"/></td>-->
+<!--                                        <td>₹<t t-esc="sum(reimbursement.amount * 12 for reimbursement in o.employee_id.contract_id.reimbursement_ids)"/></td>-->
+<!--                                    </tr>-->
+<!--                                </tbody>-->
+<!--                            </table>-->
+<!--                        </t>-->
 
                         <!-- Net Pay Section -->
                         <div class="section-title"><strong>NETPAY</strong></div>
@@ -145,12 +145,12 @@
                             <tr><td>Gross Earnings</td><td>₹0.00</td></tr>
                             <tr><td>Total Deductions</td><td>₹0.00</td></tr>
                             <!--if Available Reimbursements   Then Show otherwise Remove -->
-                            <t t-if="o.employee_id.contract_id.reimbursement_ids">
-                                <tr>
-                                    <td>Total Reimbursements</td>
-                                    <td>₹<t t-esc="sum(reimbursement.amount for reimbursement in o.employee_id.contract_id.reimbursement_ids)"/></td>
-                                </tr>
-                            </t>
+<!--                            <t t-if="o.employee_id.contract_id.reimbursement_ids">-->
+<!--                                <tr>-->
+<!--                                    <td>Total Reimbursements</td>-->
+<!--                                    <td>₹<t t-esc="sum(reimbursement.amount for reimbursement in o.employee_id.contract_id.reimbursement_ids)"/></td>-->
+<!--                                </tr>-->
+<!--                            </t>-->
                             <!--Reimbursements   end -->
                             <tr><td><strong>Total Net Payable</strong></td><td>₹0.00</td></tr>
                         </table>
