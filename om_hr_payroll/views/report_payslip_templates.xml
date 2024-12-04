@@ -1,0 +1,172 @@
+<odoo>
+    <template id="report_payslip">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <!-- Header Section -->
+                        <table class="table table-bordered" style="width: 100%; border-collapse: collapse;">
+                            <tr>
+                                <td style="width: 50%;">
+                                    <strong style="font-size: 25px; color: #000000;">Tesseract TechnoLabs Pvt Ltd</strong>
+                                    <p><a href="https://tesseracttechnolabs.com/">https://tesseracttechnolabs.com/</a><br/>
+                                    PNTC A-1205, Ahmedabad, Gujarat, India<br/>
+                                    Phone: +91 9157652641<br/>
+                                    Email: <a href="mailto:accounts@tesseracttechnolabs.com">accounts@tesseracttechnolabs.com</a></p>
+                                </td>
+                                <td style="width: 50%; text-align: right;">
+                                    <img src="/om_hr_payroll/static/src/img/logo.png" style="max-height: 70px;" alt="Company Logo"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align: center;">
+                                    <h4>Payslip for the Month of <span t-esc="o.date_to.strftime('%B, %Y')"/></h4>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- Employee Pay Summary Section -->
+                        <table class="table table-bordered" style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                            <tr>
+                                <td colspan="2">
+                                    <strong><center>Employee Pay Summary</center></strong>
+                                </td>
+                                <td colspan="2" style="text-align: center;">
+                                    <strong>Employee Net Pay</strong>
+                                    <p><strong>₹ 40000.00</strong></p>
+                                    <p>Paid Days: <span t-esc="o.worked_days_line_ids.filtered(lambda l: l.code == 'WORK100').number_of_days"/> | LOP Days: <span t-esc="o.worked_days_line_ids.filtered(lambda l: l.code == 'LOP').number_of_days"/></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Employee Name</strong></td>
+                                <td><span t-field="o.employee_id.name"/></td>
+                                <td><strong>Designation</strong></td>
+                                <td><span t-field="o.employee_id.job_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Date of Joining</strong></td>
+                                <td><span t-esc="o.employee_id.date_of_joining.strftime('%d-%b-%Y')"/></td>
+                                <td><strong>Pay Period</strong></td>
+                                <td><span t-esc="o.date_from.strftime('%d-%b-%Y')"/> to <span t-esc="o.date_to.strftime('%d-%b-%Y')"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pay Date</strong></td>
+                                <td><span t-esc="o.date_to.strftime('%d-%b-%Y')"/></td>
+                                <td><strong>PF A/C Number</strong></td>
+                                <td><span t-field="o.employee_id.pf_account_no"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>UAN Number</strong></td>
+                                <td colspan="3"><span t-field="o.employee_id.uan_no"/></td>
+                            </tr>
+                        </table>
+
+                         <table class="table table-bordered" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                            <thead>
+                                <tr>
+                                    <th colspan="3">EARNINGS</th>
+                                    <th colspan="3">DEDUCTIONS</th>
+                                </tr>
+                                <tr>
+                                    <th>DESCRIPTION</th>
+                                    <th>AMOUNT</th>
+                                    <th>YTD</th>
+                                    <th>DESCRIPTION</th>
+                                    <th>AMOUNT</th>
+                                    <th>YTD</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Earning 1</td>
+                                    <td>₹0.00</td>
+                                    <td>₹0.00</td>
+                                    <td>Deduction 1</td>
+                                    <td>₹0.00</td>
+                                    <td>₹0.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Earning 2</td>
+                                    <td>₹0.00</td>
+                                    <td>₹0.00</td>
+                                    <td>Deduction 2</td>
+                                    <td>₹0.00</td>
+                                    <td>₹0.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Earning 3</td>
+                                    <td>₹0.00</td>
+                                    <td>₹0.00</td>
+                                    <td>Deduction 3</td>
+                                    <td>₹0.00</td>
+                                    <td>₹0.00</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Gross Earnings</strong></td>
+                                    <td colspan="2">₹0.00</td>
+                                    <td><strong>Total Deductions</strong></td>
+                                    <td colspan="2">₹0.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Reimbursements Section -->
+                        <t t-if="o.employee_id.contract_id and o.employee_id.contract_id.reimbursement_ids">
+                            <div class="section-title"><strong>REIMBURSEMENTS</strong></div>
+                            <table class="table table-bordered" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Amount</th>
+                                        <th>YTD</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.employee_id.contract_id.reimbursement_ids" t-as="reimbursement">
+                                        <tr>
+                                            <td><span t-esc="reimbursement.name"/></td>
+                                            <td>₹<span t-esc="reimbursement.amount"/></td>
+                                            <td>₹<span t-esc="reimbursement.ytd"/></td>
+                                        </tr>
+                                    </t>
+
+                                    <tr>
+                                        <td><strong>Total Reimbursements</strong></td>
+                                        <td>₹<t t-esc="sum(reimbursement.amount for reimbursement in o.employee_id.contract_id.reimbursement_ids)"/></td>
+                                        <td>₹<t t-esc="sum(reimbursement.amount * 12 for reimbursement in o.employee_id.contract_id.reimbursement_ids)"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+
+                        <!-- Net Pay Section -->
+                        <div class="section-title"><strong>NETPAY</strong></div>
+                        <table class="table table-bordered" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                            <tr><td>Gross Earnings</td><td>₹0.00</td></tr>
+                            <tr><td>Total Deductions</td><td>₹0.00</td></tr>
+                            <!--if Available Reimbursements   Then Show otherwise Remove -->
+                            <t t-if="o.employee_id.contract_id.reimbursement_ids">
+                                <tr>
+                                    <td>Total Reimbursements</td>
+                                    <td>₹<t t-esc="sum(reimbursement.amount for reimbursement in o.employee_id.contract_id.reimbursement_ids)"/></td>
+                                </tr>
+                            </t>
+                            <!--Reimbursements   end -->
+                            <tr><td><strong>Total Net Payable</strong></td><td>₹0.00</td></tr>
+                        </table>
+
+                        <!-- Footer Section -->
+                        <hr style="border: 1px solid black; background-color: black; color: black; opacity: 1; margin-top: 20px;" />
+                        <div style="text-align: center; margin-top: 20px;">
+                            <p><strong>Total Net Payable ₹0.00 (Amount in Words)</strong></p>
+                            <p>**Total Net Payable = Gross Earnings - Total Deductions + Total Reimbursements</p>
+                        </div>
+                        <p class="text-right">
+                            <strong>Authorized signature</strong>
+                        </p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

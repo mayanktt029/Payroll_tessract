@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_employee_form_inherit_pf_uan" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit.pf.uan</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <notebook>
+                    <page string="Deduction">
+                        <group>
+                            <field name="pf_account_no"/>
+                            <field name="uan_no"/>
+                        </group>
+                    </page>
+
+                    <page string="Joining Details">
+                        <group>
+                            <field name="date_of_joining" required="1"/>
+                            <field name="termination_date"/>
+                            <field name="days_since_joining"/>
+                        </group>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+</odoo>
